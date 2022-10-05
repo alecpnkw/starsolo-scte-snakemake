@@ -1,0 +1,19 @@
+### Run starsolo/scTE mapping and quantitation on 10X scRNA-seq data 
+### Date: 2022-10-04
+### Alec Pankow (@alecpnkw), adapted from Roosheel Patel (@roosheelpatel)
+
+from snakemake.utils import min_version
+import pandas as pd
+from os.path import dirname, basename
+min_version("6.0")
+
+configfile: "config/config.yaml"
+localrules: all, scte_install
+
+# targeting rule
+rule all:
+   input:
+      "results/scte_quant/test.hg38.exclusive"
+
+include: "rules/starsolo.smk"
+include: "rules/scTE.smk"

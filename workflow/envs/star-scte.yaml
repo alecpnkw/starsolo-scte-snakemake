@@ -1,0 +1,6 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - star == 2.7.10a
+  - python3 >= 3.6

@@ -1,0 +1,8 @@
+# options include hg38 for human, mm10 for mouse
+# for others see https://github.com/JiekaiLab/scTE
+genome: 
+  name: "hg38"
+  fasta: "resources/genome.fa"
+  gtf: "resources/annot.gtf"
+fastqs: "resources/dummy.fq"
+umi_whitelist: "<path-to-umi-whitelist>"

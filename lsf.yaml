@@ -1,0 +1,36 @@
+# Currently, the default memory in the lsf profile
+# is what defines the amount of memory per node. 
+# Even though the values here are passed to the cluster
+# command, they do not seem to have an effect. Instead, 
+# define the required memory/threads using the `mem_mb`
+# and `threads` for each rule in the snakefile. The 
+# other options seem to be working.
+
+__default__:
+  - "-P acc_rosenb16a"
+  - "-W 00:30"
+  - "-n 1"
+  - "-R rusage[mem=4000]"
+  - "-R span[hosts=1]"
+
+star_genome_generate:
+  - "-W 12:00"
+  - "-q premium"
+  - "-n 4"
+  - "-R rusage[mem=32000]"
+
+starsolo:
+  - "-W 12:00"
+  - "-q premium"
+  - "-n 48"
+  - "-R rusage[mem=2000]"
+
+scte_build:
+  - "-n 4"
+  - "-W 01:00"
+
+scte_quant:
+  - "-W 12:00"
+  - "-q premium"
+  - "-n 48"
+  - "-R rusage[mem=2000]"

@@ -1,0 +1,16 @@
+*
+!.gitignore
+!workflow/
+!workflow/rules/
+!workflow/rules/*.smk
+!workflow/envs
+!workflow/envs/*.yaml
+!Snakefile
+!lsf.yaml
+!environment.yaml
+!README.md
+!config
+!config/config.yaml
+!config/samples.tsv
+!results/
+!resources/
