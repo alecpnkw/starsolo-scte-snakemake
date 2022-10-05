@@ -8,7 +8,7 @@ from os.path import dirname, basename
 min_version("6.0")
 
 configfile: "config/config.yaml"
-localrules: all, scte_install
+localrules: all, scte_install, scte_build
 
 # targeting rule
 rule all:
