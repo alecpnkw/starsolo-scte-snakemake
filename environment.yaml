@@ -1,7 +1,9 @@
-name: smk
+name: scte
 channels: 
   - conda-forge
   - bioconda
 dependencies:
   - pandas
-  - snakemake-minimal >= 7.14
+  - snakemake == 6.15.5
+  - python >= 3.7
+  - mamba
