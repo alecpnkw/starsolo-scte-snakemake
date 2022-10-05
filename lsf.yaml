@@ -14,23 +14,27 @@ __default__:
   - "-R span[hosts=1]"
 
 star_genome_generate:
-  - "-W 12:00"
+  - "-P acc_rosenb16a"
+  - "-W 08:00"
   - "-q premium"
   - "-n 4"
   - "-R rusage[mem=32000]"
 
 starsolo:
+  - "-P acc_rosenb16a"
   - "-W 12:00"
   - "-q premium"
-  - "-n 48"
+  - "-n 24"
   - "-R rusage[mem=2000]"
 
 scte_build:
+  - "-P acc_rosenb16a"
   - "-n 4"
   - "-W 01:00"
 
 scte_quant:
+  - "-P acc_rosenb16a"
   - "-W 12:00"
   - "-q premium"
-  - "-n 48"
+  - "-n 24"
   - "-R rusage[mem=2000]"
