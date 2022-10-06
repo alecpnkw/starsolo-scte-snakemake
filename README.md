@@ -15,7 +15,7 @@ cd starsolo-scte-snakemake
 conda env create --file environment.yaml
 ```
 
-Modify configuration file to suit your run. 
+Modify the configuration file (`config/config.yaml`) to suit your run:
 
 ```yaml
 genome: 
@@ -29,8 +29,19 @@ umi_whitelist: "<path-to-umi-whitelist>"
 Preview and run snakemake (see [documentation](https://snakemake.readthedocs.io/en/stable/) for full list of options)
 
 ```bash
+# preview
 snakemake --dry-run
+
+# run on cluster using --profile with conda envs
+snakemake \
+  --jobs <n> \
+  --use-conda \
+  --profile <cluster-profile> \
+  --keep-going \
+  --conda-prefix <path-to-conda-envs-dir>
 ```
+
+See [this](https://github.com/Snakemake-Profiles/doc) page for further documentation on Snakemake profiles. 
 
 ### Acknowledgements
 
