@@ -5,8 +5,12 @@ rule star_genome_generate:
     output:
         directory("resources/star_genome_generate/{genome}")
     threads: 4
+    conda: "../envs/star-scte.yaml"
+    resources:
+        mem_mb = 32000,
+        disk_mb = 50000
     shell:
-        """"
+        """
         STAR --runMode genomeGenerate \
             --runThreadN {threads} \
             --genomeDir {output} \
@@ -26,16 +30,21 @@ rule starsolo:
         "results/starsolo/{dataset}_{genome}/SJ.out.tab",
 	    "results/starsolo/{dataset}_{genome}/ReadsPerGene.out.tab"
     params:
-        whitelist = config["umi_whitelist"]
-    threads: 48
+        whitelist = config["umi_whitelist"],
+        fastq_str = lambda wc: ",".join(config["fastqs"])
+    conda: "../envs/star-scte.yaml"
+    threads: 24
+    resources:
+        mem_mb = 2000,
+        disk_mb = 50000
     shell:
-        """"
-        STAR --runThreadN {threads} \
+        """
+        STAR --runThreadN 48 \
             --soloType CB_UMI_Simple \
             --soloCBwhitelist {params.whitelist} \
             --soloUMIlen 12 \
             --genomeDir {input.genome} \
-            --readFilesIn {input.fastqs} \
+            --readFilesIn {params.fastq_str} \
             --readFilesCommand zcat \
             --outSAMattributes NH HI nM AS CR CY UR UY CB UB GX GN sS sQ sM \
             --outSAMtype BAM SortedByCoordinate \
