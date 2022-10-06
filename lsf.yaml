@@ -18,7 +18,7 @@ star_genome_generate:
   - "-W 08:00"
   - "-q premium"
   - "-n 4"
-  - "-R rusage[mem=32000]"
+  - "-R rusage[mem=10000]"
 
 starsolo:
   - "-P acc_rosenb16a"
