@@ -22,7 +22,8 @@ rule star_genome_generate:
 rule starsolo:
     input:
         genome = "resources/star_genome_generate/{genome}",
-        fastqs = config["fastqs"]
+        R1_fastqs = config["R1_fastqs"],
+        R2_fastqs = config["R2_fastqs"]
     output:
         # see STAR manual for additional output files
         "results/starsolo/{dataset}_{genome}/Aligned.sortedByCoord.out.bam",
@@ -31,7 +32,8 @@ rule starsolo:
 	    "results/starsolo/{dataset}_{genome}/ReadsPerGene.out.tab"
     params:
         whitelist = config["umi_whitelist"],
-        fastq_str = lambda wc: ",".join(config["fastqs"])
+        prefix = "results/starsolo/{dataset}_{genome}/",
+        fastq_str = lambda wc: ",".join(config["R2_fastqs"]) + " " + ",".join(config["R1_fastqs"])
     conda: "../envs/star-scte.yaml"
     threads: 24
     resources:
@@ -42,6 +44,9 @@ rule starsolo:
         STAR --runThreadN 48 \
             --soloType CB_UMI_Simple \
             --soloCBwhitelist {params.whitelist} \
+            --soloCBstart 1 \
+            --soloCBlen 16 \
+            --soloUMIstart 17 \
             --soloUMIlen 12 \
             --genomeDir {input.genome} \
             --readFilesIn {params.fastq_str} \
@@ -55,6 +60,7 @@ rule starsolo:
             --winAnchorMultimapNmax 100 \
             --outSAMmultNmax 1 \
             --twopassMode Basic \
-            --runRNGseed 42
+            --runRNGseed 42 \
+            --outFileNamePrefix {params.prefix}
         """
         
