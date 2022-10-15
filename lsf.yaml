@@ -35,6 +35,15 @@ scte_build:
 scte_quant:
   - "-P acc_rosenb16a"
   - "-W 12:00"
-  - "-q premium"
+  - "-q gpu"
   - "-n 24"
-  - "-R rusage[mem=2000]"
+  - "-R rusage[mem=13000]"
+
+clean_bam:
+  - "-P acc_rosenb16a"
+  - "-W 12:00"
+  - "-q premium"
+  - "-n 4"
+  - "-R rusage[mem=5000]"
+  - "-R span[hosts=1]"
+  

@@ -3,5 +3,6 @@ channels:
   - conda-forge
 dependencies:
   - star==2.7.10a
-  - python=3.9
+  - samtools==1.9
+  - python==3.8.5
   - git

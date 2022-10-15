@@ -5,7 +5,7 @@ rule scte_install:
         "../envs/star-scte.yaml"
     shell:
         """
-        git clone https://github.com/JiekaiLab/scTE.git "resources/scTE"
+        git clone https://github.com/alecpnkw/scTE.git "resources/scTE"
         cd resources/scTE
         python setup.py install
         """
@@ -31,29 +31,40 @@ rule scte_build:
             -o {params.prefix}
         """
 
+rule clean_bam:
+    input:
+        "results/starsolo/{dataset}_{genome}/Aligned.sortedByCoord.out.bam"
+    conda:
+        "../envs/star-scte.yaml"
+    output:
+        "results/clean_bam/{dataset}_{genome}/Aligned.sortedByCoord.out.bam"
+    shell:
+        """
+        samtools view {input} -h | awk '/^@/ || /CB:/' | samtools view -h -b > {output}
+        """
+
 rule scte_quant:
     input:
-        bam = "results/starsolo/{dataset}_{genome}/Aligned.sortedByCoord.out.bam",
+        bam = "results/clean_bam/{dataset}_{genome}/Aligned.sortedByCoord.out.bam",
         index = "resources/scte_build/{genome}.{mode}.idx",
     output:
-        directory("results/scte_quant/{dataset}.{genome}.{mode}")
+        "results/scte_quant/{dataset}.{genome}.{mode}.csv"
     params:
-        genome = config["genome"]["name"],
-        expect = 30000,
-        min_counts = 3000
+        expect = 20000,
+        min_counts = 3000,
+        prefix = "results/scte_quant/{dataset}.{genome}.{mode}"
     resources:
-        mem_mb = 2000,
-        disk_mb = 50000
+        mem_mb = 13000,
+        disk_mb = 55000
     conda:
         "../envs/star-scte.yaml"
     threads: 24
     shell:
         """
         scTE -i {input.bam} \
-            -o {output} \
-            -g {params.genome} \
+            -o {params.prefix} \
             -x {input.index} \
-            -p 48 \
+            -p 96 \
             --keeptmp True \
             --expect-cells {params.expect} \
             --min_counts {params.min_counts}

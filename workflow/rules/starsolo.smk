@@ -27,9 +27,7 @@ rule starsolo:
     output:
         # see STAR manual for additional output files
         "results/starsolo/{dataset}_{genome}/Aligned.sortedByCoord.out.bam",
-        "results/starsolo/{dataset}_{genome}/Aligned.toTranscriptome.out.bam",
-        "results/starsolo/{dataset}_{genome}/SJ.out.tab",
-	    "results/starsolo/{dataset}_{genome}/ReadsPerGene.out.tab"
+        "results/starsolo/{dataset}_{genome}/SJ.out.tab"
     params:
         whitelist = config["umi_whitelist"],
         prefix = "results/starsolo/{dataset}_{genome}/",
