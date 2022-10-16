@@ -18,12 +18,27 @@ conda env create --file environment.yaml
 Modify the configuration file (`config/config.yaml`) to suit your run:
 
 ```yaml
+# options include hg38 for human, mm10 for mouse
+# for others see https://github.com/JiekaiLab/scTE
 genome: 
   name: "hg38"
   fasta: "resources/genome.fa"
   gtf: "resources/annot.gtf"
-fastqs: "<path-to-fastqs-comma-separated>"
+
+# by default, assumes R2 fastq contains the cell barcode / UMI
+R1_fastqs: "resources/<path-to-R1.fq>"
+R2_fastqs: "resources/<path-to-R2.fq>"
+
+# scte params
+scte_min_counts: 3000
+scte_expect_cells: 30000
 umi_whitelist: "<path-to-umi-whitelist>"
+
+# starsolo cell barcode / UMI configuration
+soloCBstart: 1
+soloCBlen: 16
+soloUMIstart: 17
+soloUMIlen: 12
 ```
 
 Preview and run snakemake (see [documentation](https://snakemake.readthedocs.io/en/stable/) for full list of options)
