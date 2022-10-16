@@ -32,13 +32,13 @@ R2_fastqs: "resources/<path-to-R2.fq>"
 # scte params
 scte_min_counts: 3000
 scte_expect_cells: 30000
-umi_whitelist: "<path-to-umi-whitelist>"
 
 # starsolo cell barcode / UMI configuration
 soloCBstart: 1
 soloCBlen: 16
 soloUMIstart: 17
 soloUMIlen: 12
+umi_whitelist: "<path-to-umi-whitelist>"
 ```
 
 Preview and run snakemake (see [documentation](https://snakemake.readthedocs.io/en/stable/) for full list of options)
