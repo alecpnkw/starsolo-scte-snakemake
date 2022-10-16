@@ -31,7 +31,11 @@ rule starsolo:
     params:
         whitelist = config["umi_whitelist"],
         prefix = "results/starsolo/{dataset}_{genome}/",
-        fastq_str = lambda wc: ",".join(config["R2_fastqs"]) + " " + ",".join(config["R1_fastqs"])
+        fastq_str = lambda wc: ",".join(config["R2_fastqs"]) + " " + ",".join(config["R1_fastqs"]),
+        CBstart = config["soloCBstart"],
+        CBlen = config["soloCBlen"],
+        UMIstart = config["soloUMIstart"],
+        UMIlen = config["soloUMIlen"]
     conda: "../envs/star-scte.yaml"
     threads: 24
     resources:
@@ -42,10 +46,10 @@ rule starsolo:
         STAR --runThreadN 48 \
             --soloType CB_UMI_Simple \
             --soloCBwhitelist {params.whitelist} \
-            --soloCBstart 1 \
-            --soloCBlen 16 \
-            --soloUMIstart 17 \
-            --soloUMIlen 12 \
+            --soloCBstart {params.CBstart} \
+            --soloCBlen {params.CBlen} \
+            --soloUMIstart {params.UMIstart} \
+            --soloUMIlen {params.UMIlen} \
             --genomeDir {input.genome} \
             --readFilesIn {params.fastq_str} \
             --readFilesCommand zcat \

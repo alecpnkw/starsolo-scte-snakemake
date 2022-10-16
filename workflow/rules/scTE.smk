@@ -50,8 +50,8 @@ rule scte_quant:
     output:
         "results/scte_quant/{dataset}.{genome}.{mode}.csv"
     params:
-        expect = 20000,
-        min_counts = 3000,
+        expect = config["scte_expect_cells"],
+        min_counts = config["scte_min_counts"],
         prefix = "results/scte_quant/{dataset}.{genome}.{mode}"
     resources:
         mem_mb = 13000,
