@@ -13,7 +13,7 @@ localrules: all, scte_install, scte_build
 # targeting rule
 rule all:
    input:
-      "results/scte_quant/haeheterogeneity.hg38.exclusive.csv"
+      "results/scte_quant/dataset01.hg38.exclusive.csv"
 
 include: "rules/starsolo.smk"
 include: "rules/scTE.smk"
