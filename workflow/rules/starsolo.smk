@@ -35,11 +35,12 @@ rule starsolo:
         CBstart = config["soloCBstart"],
         CBlen = config["soloCBlen"],
         UMIstart = config["soloUMIstart"],
-        UMIlen = config["soloUMIlen"]
+        UMIlen = config["soloUMIlen"],
+        BCReadlen = config["soloBarcodeReadLength"]
     conda: "../envs/star-scte.yaml"
-    threads: 24
+    threads: 8
     resources:
-        mem_mb = 2000,
+        mem_mb = 5000,
         disk_mb = 50000
     shell:
         """
@@ -50,6 +51,7 @@ rule starsolo:
             --soloCBlen {params.CBlen} \
             --soloUMIstart {params.UMIstart} \
             --soloUMIlen {params.UMIlen} \
+            --soloBarcodeReadLength {params.BCReadlen}
             --genomeDir {input.genome} \
             --readFilesIn {params.fastq_str} \
             --readFilesCommand zcat \
