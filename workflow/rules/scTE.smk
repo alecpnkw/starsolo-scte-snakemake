@@ -21,8 +21,8 @@ rule scte_build:
         "../envs/star-scte.yaml"
     threads: 4
     resources:
-        mem_mb = 5000,
-        disk_mb = 20000
+        mem_mb = 20000,
+        disk_mb = 60000
     shell:
         """
         scTE_build \
@@ -38,6 +38,9 @@ rule clean_bam:
         "../envs/star-scte.yaml"
     output:
         "results/clean_bam/{dataset}_{genome}/Aligned.sortedByCoord.out.bam"
+    threads: 4
+    resources:
+        mem_mb = 16000
     shell:
         """
         samtools view {input} -h | awk '/^@/ || /CB:/' | samtools view -h -b > {output}
@@ -54,8 +57,9 @@ rule scte_quant:
         min_counts = config["scte_min_counts"],
         prefix = "results/scte_quant/{dataset}.{genome}.{mode}"
     resources:
-        mem_mb = 13000,
-        disk_mb = 55000
+        mem_mb = 128000,
+        queue = "gpu",
+        disk_mb = 200000
     conda:
         "../envs/star-scte.yaml"
     threads: 24

@@ -7,7 +7,7 @@ rule star_genome_generate:
     threads: 4
     conda: "../envs/star-scte.yaml"
     resources:
-        mem_mb = 32000,
+        mem_mb = 40000,
         disk_mb = 50000
     shell:
         """
@@ -38,10 +38,10 @@ rule starsolo:
         UMIlen = config["soloUMIlen"],
         BCReadlen = config["soloBarcodeReadLength"]
     conda: "../envs/star-scte.yaml"
-    threads: 8
+    threads: 12
     resources:
-        mem_mb = 5000,
-        disk_mb = 50000
+        mem_mb = 48000,
+        disk_mb = 164000
     shell:
         """
         STAR --runThreadN 48 \

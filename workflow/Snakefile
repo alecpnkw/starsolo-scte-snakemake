@@ -5,7 +5,7 @@
 from snakemake.utils import min_version
 import pandas as pd
 from os.path import dirname, basename
-min_version("6.0")
+min_version("8.0")
 
 configfile: "config/config.yaml"
 localrules: all, scte_install, scte_build
