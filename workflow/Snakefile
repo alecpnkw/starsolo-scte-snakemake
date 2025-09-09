@@ -7,13 +7,13 @@ import pandas as pd
 from os.path import dirname, basename
 min_version("8.0")
 
-configfile: "config/config.yaml"
+configfile: "config/config-IFN_A.yaml"
 localrules: all, scte_install, scte_build
 
 # targeting rule
 rule all:
    input:
-      "results/irescue/IFN_A_1_hg38"
+      "results/irescue/IFN_A_hg38"
 
 rule irescue:
    input:
@@ -27,7 +27,8 @@ rule irescue:
    threads: 8
    resources:
       mem_mb = 80000,
-      disk_mb = 164000
+      disk_mb = 164000,
+      walltime = 12:00
    shell:
       """
       irescue \
