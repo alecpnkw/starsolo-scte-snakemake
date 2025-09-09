@@ -18,4 +18,5 @@ soloCBstart: 1
 soloCBlen: 16
 soloUMIstart: 17
 soloUMIlen: 12
+soloBarcodeReadLength: 28
 umi_whitelist: "<path-to-umi-whitelist>"

@@ -51,7 +51,7 @@ rule starsolo:
             --soloCBlen {params.CBlen} \
             --soloUMIstart {params.UMIstart} \
             --soloUMIlen {params.UMIlen} \
-            --soloBarcodeReadLength {params.BCReadlen}
+            --soloBarcodeReadLength {params.BCReadlen} \
             --genomeDir {input.genome} \
             --readFilesIn {params.fastq_str} \
             --readFilesCommand zcat \

@@ -5,7 +5,7 @@ rule scte_install:
         "../envs/star-scte.yaml"
     shell:
         """
-        git clone https://github.com/alecpnkw/scTE.git "resources/scTE"
+        git clone https://github.com/JiekaiLab/scTE.git "resources/scTE"
         cd resources/scTE
         python setup.py install
         """
