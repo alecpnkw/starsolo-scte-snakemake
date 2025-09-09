@@ -51,9 +51,8 @@ snakemake --dry-run
 snakemake \
   --jobs <n> \
   --use-conda \
-  --profile <cluster-profile> \
+  --profile profiles/lsf \
   --keep-going \
-  --conda-prefix <path-to-conda-envs-dir>
 ```
 
 See [this](https://github.com/Snakemake-Profiles/doc) page for further documentation on Snakemake profiles. 

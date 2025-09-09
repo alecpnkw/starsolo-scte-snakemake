@@ -2,4 +2,5 @@
 results/
 resources/
 scratch/
+logs/
 .DS_Store

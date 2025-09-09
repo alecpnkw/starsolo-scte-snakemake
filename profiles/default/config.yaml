@@ -1,2 +1,7 @@
-jobs: 4
-executor: local
+jobs: 10
+executor: lsf
+default-resources:
+  - 'lsf_project=acc_brriavgrn'
+  - 'lsf_queue=premium'
+  - 'walltime=01:00'
+  - 'mem_mb=8000'

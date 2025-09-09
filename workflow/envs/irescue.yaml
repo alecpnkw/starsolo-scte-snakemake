@@ -1,0 +1,6 @@
+name: irescue
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - irescue

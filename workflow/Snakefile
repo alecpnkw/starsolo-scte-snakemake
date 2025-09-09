@@ -13,7 +13,31 @@ localrules: all, scte_install, scte_build
 # targeting rule
 rule all:
    input:
-      "results/scte_quant/dataset01.hg38.exclusive.csv"
+      "results/irescue/IFN_A_1_hg38"
+
+rule irescue:
+   input:
+      "results/clean_bam/{dataset}_{genome}/Aligned.sortedByCoord.out.bam"
+   output:
+      directory("results/irescue/{dataset}_{genome}")
+   params:
+      genome = lambda wc: wc.genome,
+      whitelist = config["umi_whitelist"]
+   conda: "envs/irescue.yaml"
+   threads: 8
+   resources:
+      mem_mb = 80000,
+      disk_mb = 164000
+   shell:
+      """
+      irescue \
+      --bam {input} \
+      --genome {params.genome} \
+      --outdir {output} \
+      -p {threads} \
+      --whitelist {params.whitelist} \
+      --keeptmp
+      """
 
 include: "rules/starsolo.smk"
 include: "rules/scTE.smk"
