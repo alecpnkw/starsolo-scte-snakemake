@@ -3,5 +3,5 @@ executor: lsf
 default-resources:
   - 'lsf_project=acc_brriavgrn'
   - 'lsf_queue=premium'
-  - 'walltime=01:00'
+  - 'walltime=360'
   - 'mem_mb=8000'

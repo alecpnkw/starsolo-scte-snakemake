@@ -3,13 +3,22 @@ import re
 import sys
 from typing import List, Tuple, Dict
 
-# --- Configuration ---
+## FASTQ DETECTION DEFINITIONS ################################################
 
+"""
+Objective: given an input directory of FASTQ files, return lists of R1 and R2
+files, paired by mate. This should be robust to commonly used file extensions:
+.fastq / .FASTQ / .fq, etc. and compression formats. If any files are unmatched
+they are returned separately.
+"""
+
+# --- Configuration ---
 
 COMP_EXTS = (".gz", ".bz2", ".zst", ".xz")
 BASE_EXTS = (".fastq", ".fq")
 
 # Try explicit tokens first; then bare _1/_2 (no lookbehind needed).
+
 READ_TOKEN_PATTERNS = [
     re.compile(r"([._-])R(?P<read>[12])([._-]|$)", re.IGNORECASE),     # _R1_
     re.compile(r"([._-])read(?P<read>[12])([._-]|$)", re.IGNORECASE),  # _read1_
@@ -23,6 +32,11 @@ STRIP_DECOS = [
 ]
 
 def strip_fastq_exts(name: str) -> str:
+    """Returns the file stripped of common FASTQ extensions (case insensitive).
+    
+    Strips common compression format extensions first, then FASTQ extensions.
+    """
+
     low = name.lower()
     for cext in COMP_EXTS:
         if low.endswith(cext):
@@ -36,6 +50,11 @@ def strip_fastq_exts(name: str) -> str:
     return name
 
 def detect_read_and_key(stem: str) -> Tuple[str | None, str | None]:
+    """Determines if read 1 or 2 and returns shared identifier for FASTQ mates
+    
+    Tries to look for *_R1_*, *_read1_*, and *_1_* identifiers in turn, returns a
+    shared ID stripped of lane IDs and other common  
+    """
     base = stem + "."
     for rgx in READ_TOKEN_PATTERNS:
         m = rgx.search(base)
@@ -99,6 +118,8 @@ def find_fastq_pairs(input_dir: str, recursive: bool = True
         unmatched_R2.extend(str(p) for p in g["2"][n:])
 
     return r1_paths, r2_paths, {"R1": unmatched_R1, "R2": unmatched_R2}
+
+## END ########################################################################
 
 
 # --- Example ---

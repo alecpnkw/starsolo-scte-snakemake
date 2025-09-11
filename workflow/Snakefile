@@ -1,10 +1,11 @@
-### Run starsolo/scTE mapping and quantitation on 10X scRNA-seq data 
+### Run starsolo/TE mapping and quantitation on 10X scRNA-seq data 
 ### Date: 2022-10-04
 ### Alec Pankow (@alecpnkw), adapted from Roosheel Patel (@roosheelpatel)
 
 from snakemake.utils import min_version
 import pandas as pd
 from os.path import dirname, basename
+import scripts.gather_fastq
 min_version("8.0")
 
 configfile: "config/config-series2.yaml"
