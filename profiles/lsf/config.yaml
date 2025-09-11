@@ -1,7 +1,0 @@
-jobs: 10
-executor: lsf
-default-resources:
-  - 'lsf_project=<your LSF project>'
-  - 'lsf_queue=<your LSF queue>'
-  - 'walltime=01:00'
-  - 'mem_mb=8000'
